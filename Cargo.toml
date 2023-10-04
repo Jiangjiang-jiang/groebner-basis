@@ -1,0 +1,50 @@
+[package]
+name = "groebner-basis"
+version = "0.1.4"
+edition = "2021"
+authors = ["QSANG <08173039@cumt.edu.cn>"]
+exclude = ["deprecated/*.rs"]
+
+[dependencies]
+rayon = "1.7.0"
+ark-std = { version = "0.4.0", features = ["parallel"] }
+ark-ff = { version = "0.4.2", features=["parallel", "asm"] }
+clap = { version = "4.2.4", features = ["derive"] }
+derivative = "2.2.0"
+fancy-regex = "0.11.0"
+once_cell = "1.17.1"
+chrono = "0.4.24"
+hashbrown = { version = "0.13.2", features = ["rayon"] }
+flint-sys = "0.7.3"
+
+[dev-dependencies]
+ark-test-curves = { version = "0.4.2", default-features = false, features = ["bls12_381_curve"] }
+rand = "0.8.5"
+
+[profile.release]
+opt-level = 3 # Optimize for maximum performance
+lto = true # Enable link-time optimization
+codegen-units = 1 # Reduce parallel code generation units for better optimization
+incremental = false # Don't use incremental compilation in release mode
+panic = 'abort' # Abort on panic
+debug = false # No debug info
+overflow-checks = false # Disable overflow checks
+
+[profile.bench]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+incremental = true
+debug-assertions = false
+
+[profile.dev]
+opt-level = 0
+panic = 'abort'
+
+[profile.test]
+opt-level = 3
+lto = false
+incremental = true
+debug-assertions = true
+debug = true
