@@ -6,7 +6,11 @@ use std::{
     iter,
     marker::PhantomData,
     ops::{Div, Mul, MulAssign},
-    simd::{Simd, SimdOrd, SimdPartialOrd, SimdUint, ToBitMask},
+    simd::{
+        cmp::{SimdOrd, SimdPartialOrd},
+        num::SimdUint,
+        Simd,
+    },
     vec::Vec,
 };
 

@@ -1,6 +1,4 @@
 #![feature(portable_simd)]
-#![feature(option_as_slice)]
-#![feature(arc_unwrap_or_clone)]
 #![allow(non_snake_case)]
 #![allow(clippy::new_ret_no_self)]
 #![allow(clippy::needless_return)]
