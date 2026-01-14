@@ -1,15 +1,15 @@
 # Lava: A Gröbner Basis Solver in Rust
 
-**Lava** is a high-performance open-source tool for computing Gröbner Bases of multivariate polynomial systems. It is designed specifically for the algebraic analysis of Arithmetic-oriented Primitives.
+**Lava** is a high-performance open-source tool for computing Gröbner Bases of multivariate polynomial systems. It is designed specifically for the algebraic cryptanalysis of Arithmetic-oriented Primitives.
 
 This project implements the **GVW Algorithm** for basis computation and the **FGLM Algorithm** for basis conversion, aiming to solve high-degree polynomial systems over large finite fields efficiently.
 
-## Motivation
+## Why Lava?
 
-When solving algebraic systems over finite fields, the bottlenecks of general-purpose mathematical software directly motivated the development of Lava:
+When solving algebraic systems over finite fields, bottlenecks of general-purpose mathematical software directly motivated the development of Lava:
 
-- **SageMath** threw errors and failed to execute calculations when handling the specific large finite fields required for large finite fields (e.g. GF(p) where p = 18446744073709551557).
-- While **Magma** is closed-source and expensive, the web-based trial free version could not complete the solving process within the time limits for the scale of certain computations.
+- **SageMath** threw errors and failed to execute calculations when handling the specific large finite fields (e.g. GF(p) where p = 18446744073709551557).
+- While **Magma** is closed and expensive software, the web-based trial free version could not complete the solving process within the time limits for the scale of polynomial systems.
 
 Thus, we chose to implement the core algorithms from scratch using Rust to achieve better memory control and execution efficiency.
 
@@ -21,7 +21,7 @@ Lava includes implementations for two core algorithms:
    - Unlike the Buchberger and F5 algorithms, the GVW algorithm possesses a rigorous proof of termination.
    - Filters Critical Pairs using the Syzygy Criterion and Rewriting Criterion, reducing redundant computations.
 2. **FGLM Algorithm (Basis Conversion)**
-   - Used to convert a computed GrevLex (Greedy Reverse Lexicographic) Gröbner Basis into a Lex (Lexicographic) basis for finding root for univariate polynomials.
+   - Used to convert a computed DegRevLex Gröbner Basis into a Lex basis for finding root for univariate polynomials.
 
 ## Installation & Usage
 
@@ -32,8 +32,8 @@ This project requires a nightly rust version and CPU with AVX2 for portable SIMD
 ```bash
 sudo apt-get install libflint-dev libmpfr-dev libgmp-dev m4
 
-git clone https://github.com/Jiangjiang-jiang/groebner-basis.git
-cd groebner-basis
+git clone https://github.com/Jiangjiang-jiang/groebner-basis-solver.git
+cd ./groebner-basis-solver
 
 cargo +nightly build --release
 ```
@@ -54,10 +54,10 @@ cargo +nightly test test_GVW_given_case_1
 
 ### Usage
 
-Run `./groebner-basis --help`:
+Run `./groebner-basis-solver --help`:
 
 ```
-Usage: groebner-basis --input <INPUT> --output <OUTPUT>
+Usage: groebner-basis-solver --input <INPUT> --output <OUTPUT>
 
 Options:
   -i, --input <INPUT>    
@@ -130,10 +130,10 @@ To outperform general-purpose mathematical software, Lava incorporates extensive
 
 ## References
 
-Aly A, Ashur T, Ben-Sasson E, et al. Design of symmetric-key primitives for advanced cryptographic protocols[J]. IACR Transactions on Symmetric Cryptology, 2020: 1-45. 
+[1] Aly A, Ashur T, Ben-Sasson E, et al. Design of symmetric-key primitives for advanced cryptographic protocols[J]. IACR Transactions on Symmetric Cryptology, 2020: 1-45. https://eprint.iacr.org/2019/426.pdf
 
-Szepieniec A, Ashur T, Dhooghe S. Rescue-prime: a standard specification (sok)[J]. Cryptology ePrint Archive, 2020. 
+[2] Szepieniec A, Ashur T, Dhooghe S. Rescue-prime: a standard specification (sok)[J]. Cryptology ePrint Archive, 2020. https://eprint.iacr.org/2020/1143
 
-J.C. Faugère, P. Gianni, D. Lazard, and T. Mora. 1993. Efficient Computation of Zerodimensional Gröbner Bases by Change of Ordering. J. Symb. Comput. 16, 4 (Oct. 1993), 329– 344. https://doi.org/10.1006/jsco.1993.1051 
+[3] J.C. Faugère, P. Gianni, D. Lazard, and T. Mora. 1993. Efficient Computation of Zerodimensional Gröbner Bases by Change of Ordering. J. Symb. Comput. 16, 4 (Oct. 1993), 329– 344. https://doi.org/10.1006/jsco.1993.1051 
 
-Yao Sun, Zhenyu Huang, Dingkang Wang, and Dongdai Lin. 2016. An improvement over the GVW algorithm for inhomogeneous polynomial systems. Finite Fields Appl. 41, C (September 2016), 174–192. https://doi.org/10.1016/j.ffa.2016.06.002
+[4] Yao Sun, Zhenyu Huang, Dingkang Wang, and Dongdai Lin. 2016. An improvement over the GVW algorithm for inhomogeneous polynomial systems. Finite Fields Appl. 41, C (September 2016), 174–192. https://doi.org/10.1016/j.ffa.2016.06.002
